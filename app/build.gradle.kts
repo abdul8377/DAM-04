@@ -4,6 +4,12 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt") //Agregado
     id("dagger.hilt.android.plugin") //Agregado
+
+    id("androidx.room")
+    id("com.google.devtools.ksp")
+
+
+
 }
 
 android {
@@ -42,6 +48,10 @@ android {
 
     tasks.withType<JavaCompile>().configureEach {
         options.compilerArgs.add("-Xlint:deprecation")
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
 }
@@ -89,4 +99,28 @@ dependencies {
     val appcompat_version = "1.7.0" //old 1.6.1
     implementation("androidx.appcompat:appcompat:$appcompat_version")
     //Agrega do recien
+
+
+
+
+    val room_version = "2.7.0"
+
+    implementation("androidx.room:room-runtime:$room_version")
+
+    // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
+    // See Add the KSP plugin to your project
+    ksp("androidx.room:room-compiler:$room_version")
+
+    // If this project only uses Java source, use the Java annotationProcessor
+    // No additional plugins are necessary
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+
+
+    //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
+    implementation("com.google.accompanist:accompanist-permissions:0.37.2")
+
 }
