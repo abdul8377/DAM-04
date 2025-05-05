@@ -29,4 +29,13 @@ sealed class Destinations(
                 return "productoForm?prodId=$prodId"
             }
         }
+    object MarcaMainSC: Destinations("marcamain","Adm. Marca",
+        Icons.Filled.DateRange)
+    object MarcaFormSC: Destinations("marcaForm?marcId={marcId}",
+        "Form Marca",
+        Icons.Filled.Add){
+        fun passId(marcId:String?):String{
+            return "marcaForm?marcId=$marcId"
+        }
+    }
 }
